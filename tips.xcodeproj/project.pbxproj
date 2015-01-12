@@ -13,6 +13,7 @@
 		236539BE1A6390EE0081F1FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236539BD1A6390EE0081F1FF /* Images.xcassets */; };
 		236539C11A6390EE0081F1FF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 236539BF1A6390EE0081F1FF /* LaunchScreen.xib */; };
 		236539CD1A6390EE0081F1FF /* tipsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236539CC1A6390EE0081F1FF /* tipsTests.swift */; };
+		236539D71A63C3860081F1FF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236539D61A63C3860081F1FF /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		236539C61A6390EE0081F1FF /* tipsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tipsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		236539CB1A6390EE0081F1FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		236539CC1A6390EE0081F1FF /* tipsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tipsTests.swift; sourceTree = "<group>"; };
+		236539D61A63C3860081F1FF /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				236539B61A6390EE0081F1FF /* AppDelegate.swift */,
-				236539B81A6390EE0081F1FF /* ViewController.swift */,
+				236539D81A63C38D0081F1FF /* ViewControllers */,
 				236539BA1A6390EE0081F1FF /* Main.storyboard */,
 				236539BD1A6390EE0081F1FF /* Images.xcassets */,
 				236539BF1A6390EE0081F1FF /* LaunchScreen.xib */,
@@ -110,6 +112,15 @@
 				236539CB1A6390EE0081F1FF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		236539D81A63C38D0081F1FF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				236539B81A6390EE0081F1FF /* ViewController.swift */,
+				236539D61A63C3860081F1FF /* SettingsViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +225,7 @@
 			files = (
 				236539B91A6390EE0081F1FF /* ViewController.swift in Sources */,
 				236539B71A6390EE0081F1FF /* AppDelegate.swift in Sources */,
+				236539D71A63C3860081F1FF /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +301,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -325,7 +337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -337,6 +349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tips/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -347,6 +360,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tips/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
