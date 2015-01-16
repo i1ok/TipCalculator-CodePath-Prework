@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController {
     }
     
     
-// MARK: segment config methods
+// MARK: segment config actions
     
     @IBAction func onEditingChangedSegment1(sender: AnyObject) {
         // convert number as text to double
@@ -80,6 +80,18 @@ class SettingsViewController: UIViewController {
         println(valueSegment3)
         defaults.setDouble(valueSegment3, forKey: "tipPercentage3")
     }
+    
+// MARK: color config actions
+    
+    @IBAction func changeColor(sender: AnyObject) {
+        var red = CGFloat(redColorSlider.value)
+        var green = CGFloat(greenColorSlider.value)
+        var blue = CGFloat(blueColorSlider.value)
+        
+        var newcolor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+        self.view.backgroundColor = newcolor
+    }
+    
 
 // MARK: other actions
     
