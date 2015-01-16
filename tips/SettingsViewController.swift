@@ -12,10 +12,18 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+// MARK: outlets and variables
+    
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var segmentField1: UITextField!
     @IBOutlet weak var segmentField2: UITextField!
     @IBOutlet weak var segmentField3: UITextField!
+    
+    @IBOutlet weak var redColorSlider: UISlider!
+    @IBOutlet weak var greenColorSlider: UISlider!
+    @IBOutlet weak var blueColorSlider: UISlider!
+    
+    var color: UIColor!
     
     var defaults = NSUserDefaults.standardUserDefaults()
     
@@ -35,12 +43,23 @@ class SettingsViewController: UIViewController {
         segmentField1.text = String(format: "%.2f", doubleValue1)
         segmentField2.text = String(format: "%.2f", doubleValue2)
         segmentField3.text = String(format: "%.2f", doubleValue3)
+        
+        var redValue = redColorSlider.value
+        var greenValue = greenColorSlider.value
+        var blueValue = blueColorSlider.value
+        
+        println(redValue)
+        println(greenValue)
+        println(blueValue)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+// MARK: segment config methods
     
     @IBAction func onEditingChangedSegment1(sender: AnyObject) {
         // convert number as text to double
@@ -61,17 +80,21 @@ class SettingsViewController: UIViewController {
         println(valueSegment3)
         defaults.setDouble(valueSegment3, forKey: "tipPercentage3")
     }
+
+// MARK: other actions
     
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
     }
     
-    // View actions
     
     // close settingView when done button is touched
     @IBAction func dismissWindow(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+// MARK: view actions
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
