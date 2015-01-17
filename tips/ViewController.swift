@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     // create NSUserDefaults
     var defaults = NSUserDefaults.standardUserDefaults()
     
+    var hasDoneSettings: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,21 +31,37 @@ class ViewController: UIViewController {
         tipLabel.text = "$0.00"
         totalLabel.text = "$0.00"
         
-        // Get values from NSUserDefaults for tipPercentages
-        var doubleValue1 = defaults.doubleForKey("tipPercentage1")
-        var doubleValue2 = defaults.doubleForKey("tipPercentage2")
-        var doubleValue3 = defaults.doubleForKey("tipPercentage3")
+        hasDoneSettings = defaults.boolForKey("hasDoneSettings")
         
-        // put values to tipPercentages array
-        tipPercentages[0] = doubleValue1
-        tipPercentages[1] = doubleValue2
-        tipPercentages[2] = doubleValue3
+        if !hasDoneSettings {
+            // create key-value sets to NSUserDefaults
+            defaults.setDouble(tipPercentages[0], forKey: "tipPercentage1")
+            defaults.setDouble(tipPercentages[1], forKey: "tipPercentage2")
+            defaults.setDouble(tipPercentages[2], forKey: "tipPercentage3")
+            defaults.synchronize()
+
+        } else {
+            
+            // Get values from NSUserDefaults for tipPercentages
+            var doubleValue1 = defaults.doubleForKey("tipPercentage1")
+            var doubleValue2 = defaults.doubleForKey("tipPercentage2")
+            var doubleValue3 = defaults.doubleForKey("tipPercentage3")
+            
+            // put values to tipPercentages array
+            tipPercentages[0] = doubleValue1
+            tipPercentages[1] = doubleValue2
+            tipPercentages[2] = doubleValue3
+            
+            // create key-value sets to NSUserDefaults
+            defaults.setDouble(tipPercentages[0], forKey: "tipPercentage1")
+            defaults.setDouble(tipPercentages[1], forKey: "tipPercentage2")
+            defaults.setDouble(tipPercentages[2], forKey: "tipPercentage3")
+            defaults.synchronize()
+        }
         
-        // create key-value sets to NSUserDefaults
-        defaults.setDouble(tipPercentages[0], forKey: "tipPercentage1")
-        defaults.setDouble(tipPercentages[1], forKey: "tipPercentage2")
-        defaults.setDouble(tipPercentages[2], forKey: "tipPercentage3")
-        defaults.synchronize()
+        
+        
+        println("tip root view did load")
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,25 +103,43 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         println("rootView will appear")
         
-        // get values from NSUserDefaults
-        var doubleValue1 = defaults.doubleForKey("tipPercentage1")
-        var doubleValue2 = defaults.doubleForKey("tipPercentage2")
-        var doubleValue3 = defaults.doubleForKey("tipPercentage3")
+        hasDoneSettings = defaults.boolForKey("hasDoneSettings")
+        var colorData: NSData!
         
-        // put values into tipPercentage array
-        tipPercentages[0] = doubleValue1
-        tipPercentages[1] = doubleValue2
-        tipPercentages[2] = doubleValue3
+        if !hasDoneSettings {
+            return
+        } else {
+            // get colorData from NSUserDefaults
+            colorData = defaults.objectForKey("color") as NSData
+            
+            // unarchive colorData
+            var color = NSKeyedUnarchiver.unarchiveObjectWithData(colorData) as UIColor
+            self.view.backgroundColor = color
+        }
         
-        // convert double values to int
-        var intValue1 = Int(doubleValue1 * 100)
-        var intValue2 = Int(doubleValue2 * 100)
-        var intValue3 = Int(doubleValue3 * 100)
-
-        // update tipControlSegment
-        tipControl.setTitle("\(intValue1)%" , forSegmentAtIndex: 0)
-        tipControl.setTitle("\(intValue2)%" , forSegmentAtIndex: 1)
-        tipControl.setTitle("\(intValue3)%" , forSegmentAtIndex: 2)
+        if  !hasDoneSettings {
+            return
+        } else {
+            // get values from NSUserDefa ults
+            var doubleValue1 = defaults.doubleForKey("tipPercentage1")
+            var doubleValue2 = defaults.doubleForKey("tipPercentage2")
+            var doubleValue3 = defaults.doubleForKey("tipPercentage3")
+            
+            // put values into tipPercentage array
+            tipPercentages[0] = doubleValue1
+            tipPercentages[1] = doubleValue2
+            tipPercentages[2] = doubleValue3
+            
+            // convert double values to int
+            var intValue1 = Int(doubleValue1 * 100)
+            var intValue2 = Int(doubleValue2 * 100)
+            var intValue3 = Int(doubleValue3 * 100)
+            
+            // update tipControlSegment
+            tipControl.setTitle("\(intValue1)%" , forSegmentAtIndex: 0)
+            tipControl.setTitle("\(intValue2)%" , forSegmentAtIndex: 1)
+            tipControl.setTitle("\(intValue3)%" , forSegmentAtIndex: 2)
+        }
     }
 }
 

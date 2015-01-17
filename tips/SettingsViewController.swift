@@ -27,10 +27,15 @@ class SettingsViewController: UIViewController {
     
     var defaults = NSUserDefaults.standardUserDefaults()
     
+    var hasDoneSettings: Bool!
+    var hasSetColor: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         println("view did load")
         
+        hasDoneSettings = defaults.boolForKey("hasDoneSettings")
+    
         // get values from NSUserDefaults
         var doubleValue1 = defaults.doubleForKey("tipPercentage1")
         var doubleValue2 = defaults.doubleForKey("tipPercentage2")
@@ -44,13 +49,47 @@ class SettingsViewController: UIViewController {
         segmentField2.text = String(format: "%.2f", doubleValue2)
         segmentField3.text = String(format: "%.2f", doubleValue3)
         
+        
+        hasSetColor = defaults.boolForKey("hasSetColor")
+        if !hasSetColor {
+            color = UIColor.whiteColor()
+            defaults.setBool(true, forKey: "hasSetColor")
+        } else if hasSetColor == true {
+            var colorData: NSData!
+                // get colorData from NSUserDefaults
+                colorData = defaults.objectForKey("color") as NSData
+                
+                // unarchive colorData
+                var color = NSKeyedUnarchiver.unarchiveObjectWithData(colorData) as UIColor
+                self.view.backgroundColor = color
+                
+                var red = CGFloat(0.00)
+                var green =  CGFloat(0.00)
+                var blue = CGFloat(0.00)
+                
+                color.getRed(&red, green: &green, blue: &blue, alpha: nil)
+                
+                redColorSlider.value = Float(red)
+                greenColorSlider.value = Float(green)
+                blueColorSlider.value = Float(blue)
+            
+        }
+        
         var redValue = redColorSlider.value
         var greenValue = greenColorSlider.value
         var blueValue = blueColorSlider.value
         
-        println(redValue)
-        println(greenValue)
-        println(blueValue)
+        // get value from red, green, blue color sliders
+        var red = CGFloat(redColorSlider.value)
+        var green = CGFloat(greenColorSlider.value)
+        var blue = CGFloat(blueColorSlider.value)
+        
+        // create new color with 3 values
+        color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+        
+//        println(redValue)
+//        println(greenValue)
+//        println(blueValue)
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,12 +123,16 @@ class SettingsViewController: UIViewController {
 // MARK: color config actions
     
     @IBAction func changeColor(sender: AnyObject) {
+        // get value from red, green, blue color sliders
         var red = CGFloat(redColorSlider.value)
         var green = CGFloat(greenColorSlider.value)
         var blue = CGFloat(blueColorSlider.value)
         
-        var newcolor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-        self.view.backgroundColor = newcolor
+        // create new color with 3 values
+        color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+
+        // change background color
+        self.view.backgroundColor = color
     }
     
 
@@ -102,6 +145,22 @@ class SettingsViewController: UIViewController {
     
     // close settingView when done button is touched
     @IBAction func dismissWindow(sender: AnyObject) {
+        // archive color
+        var colorData = NSKeyedArchiver.archivedDataWithRootObject(color) as NSData
+        
+        // save color to NSUserDefaults
+        defaults.setObject(colorData, forKey: "color")
+        
+        if !hasDoneSettings {
+            defaults.setBool(true, forKey: "hasDoneSettings")
+        }
+        
+        if !hasSetColor {
+            defaults.setBool(true, forKey: "hasSetColor")
+        }
+        
+        defaults.synchronize()
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
